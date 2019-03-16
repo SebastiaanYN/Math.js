@@ -9,7 +9,7 @@ function load(name) {
 }
 
 console.log('\nLexing');
-const tokens = lexer(load('formula'));
+const tokens = lexer(load('order'));
 console.log(tokens.success ? 'Success' : 'Issue');
 console.log(tokens.tokens);
 
