@@ -1,9 +1,9 @@
 const helpers = require('../parser/helpers.js');
 
-const math = ['number', 'symbol', 'function', 'pow', 'mdequation', 'equation'];
+const math = ['number', 'symbol', 'fn', 'pow', 'mdequation', 'equation'];
 
 const matchers = {
-  function(index, tokens) {
+  fn(index, tokens) {
     return helpers.sequence([
       'symbol',
       'lpar',
@@ -36,7 +36,7 @@ const matchers = {
     return helpers.sequence([
       'symbol',
       'assign',
-      'number',
+      math,
     ], index, tokens);
   },
 };

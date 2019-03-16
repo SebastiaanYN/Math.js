@@ -1,6 +1,6 @@
 const helpers = {
   sequence(sequence, index, tokens) {
-    // Check if sequence matches
+    // Check if sequence of token names matches
     for (let i = 0; i < sequence.length; i += 1) {
       let check = sequence[i];
 

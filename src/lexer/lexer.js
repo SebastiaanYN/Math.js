@@ -2,20 +2,18 @@ const patterns = require('../syntax/lexing.js');
 
 function lexer(string) {
   const tokens = [];
-
   let index = 0;
 
+  // Loop till we have gone through the entire string
   while (index < string.length) {
     let matched = false;
 
     // eslint-disable-next-line no-loop-func
-    Object.entries(patterns).forEach(([name, pattern]) => {
-      if (matched) {
-        return;
-      }
-
+    for (const [name, pattern] of Object.entries(patterns)) {
+      // Match the string with the pattern
       const match = string.slice(index).match(pattern);
 
+      // If we have a match add the token, unless the token should be ignored
       if (match !== null) {
         const raw = match[0];
 
@@ -28,9 +26,11 @@ function lexer(string) {
 
         index += match[0].length;
         matched = true;
+        break;
       }
-    });
+    }
 
+    // If nothing was matched then the character is invalid
     if (!matched) {
       console.log(`Unknown token ${string.slice(index, index + 1)} at index ${index}`);
       return { success: false, tokens };
