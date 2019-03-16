@@ -13,14 +13,13 @@ function parser(tokens) {
     for (let i = 0; i < matchers.length; i += 1) {
       const matcher = matchers[i];
 
-      const match = parsing[matcher](index, tokens);
+      const matchTokens = parsing[matcher](index, tokens);
 
-      if (match !== 0) {
-        const raw = tokens.slice(index, index + match).map(token => token.raw).join('');
-        const token = { name: matcher, index, raw };
+      if (matchTokens.length !== 0) {
+        const token = { name: matcher, index, tokens: matchTokens };
 
         // eslint-disable-next-line no-param-reassign
-        tokens = [...tokens.slice(0, index), token, ...tokens.slice(index + match)];
+        tokens = [...tokens.slice(0, index), token, ...tokens.slice(index + matchTokens.length)];
 
         matched = true;
         break;

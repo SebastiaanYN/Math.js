@@ -19,7 +19,7 @@ const matchers = {
     return helpers.sequence([
       'symbol',
       'lpar',
-      ['number', 'equation'],
+      ['number', 'equation', 'function'],
       'rpar',
     ], index, tokens);
   },
