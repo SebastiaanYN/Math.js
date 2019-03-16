@@ -33,11 +33,11 @@ function lexer(string) {
 
     if (!matched) {
       console.log(`Unknown token ${string.slice(index, index + 1)} at index ${index}`);
-      return [false, tokens];
+      return { success: false, tokens };
     }
   }
 
-  return [true, tokens];
+  return { success: true, tokens };
 }
 
 module.exports = lexer;
