@@ -1,6 +1,6 @@
-const parsing = require('../syntax/parsing.js');
+const { matchers, illegals } = require('../syntax/parsing.js');
 
-const matchers = Object.keys(parsing);
+const matcherNames = Object.keys(matchers);
 
 function parser(tokens) {
   // Loop until nothing has changed for an entire iteration
@@ -8,14 +8,14 @@ function parser(tokens) {
     let change = false;
 
     // Loop through all matcher names, runs from top to bottom to retain priority
-    for (let i = 0; i < matchers.length; i += 1) {
+    for (let i = 0; i < matcherNames.length; i += 1) {
       console.log(tokens); // debug
 
-      const matcher = matchers[i];
+      const matcher = matcherNames[i];
 
       // Loop through all tokens and see if a token matches
       for (let index = 0; index < tokens.length; index += 1) {
-        const match = parsing[matcher](index, tokens, parser);
+        const match = matchers[matcher](index, tokens, parser);
 
         if (typeof match === 'object') {
           const matchTokens = tokens.slice(index, index + match.amount);
@@ -53,7 +53,15 @@ function parser(tokens) {
     }
   }
 
-  return tokens;
+  // Check if there is an illegal token left
+  for (let i = 0; i < tokens.length; i += 1) {
+    if (illegals.includes(tokens[i].name)) {
+      console.log(`Illegal ${tokens[i].name} ${tokens[i].raw} at index ${tokens[i].index}`);
+      return { success: false, tokens };
+    }
+  }
+
+  return { success: true, tokens };
 }
 
 module.exports = parser;

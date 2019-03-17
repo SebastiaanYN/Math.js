@@ -1,4 +1,5 @@
 const patterns = require('../syntax/lexing.js');
+const lineRow = require('./lineRow.js');
 
 function lexer(string) {
   const tokens = [];
@@ -32,7 +33,9 @@ function lexer(string) {
 
     // If nothing was matched then the character is invalid
     if (!matched) {
-      console.log(`Unknown token ${string.slice(index, index + 1)} at index ${index}`);
+      const { line, row } = lineRow(string, index);
+
+      console.log(`Unknown token ${string.slice(index, index + 1)} at ${line}:${row}`);
       return { success: false, tokens };
     }
   }

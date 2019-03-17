@@ -53,4 +53,12 @@ const matchers = {
   },
 };
 
-module.exports = matchers;
+const illegals = [
+  'lpar',
+  'rpar',
+  'pow_operator',
+  'md_operator',
+  'operator',
+];
+
+module.exports = { matchers, illegals };

@@ -12,13 +12,14 @@ function load(name) {
 
 const input = load('complex');
 
+console.log(input.slice(0, 19).split('\n').length);
+
 console.log('\nLexing');
-const tokens = lexer(input);
-console.log(tokens.success ? 'Success' : 'Issue');
-console.log(tokens.tokens);
+const lexed = lexer(input);
+console.log(lexed.tokens);
 
 console.log('\nParsing');
-const parsed = parser(tokens.tokens);
+const parsed = parser(lexed.tokens);
 
 console.log(`\n${input.trim()}`);
-console.log(treeify.asTree(parsed, true));
+console.log(treeify.asTree(parsed.tokens, true));
