@@ -1,6 +1,6 @@
 const helpers = require('../parser/helpers.js');
 
-const math = ['number', 'symbol', 'fn', 'pow', 'mdequation', 'equation'];
+const math = ['number', 'symbol', 'fn', 'math'];
 
 const matchers = {
   fn(index, tokens) {
@@ -10,6 +10,9 @@ const matchers = {
       math,
       'rpar',
     ], index, tokens);
+  },
+  wrapped_math(index, tokens, parser) {
+    return helpers.wrapped('lpar', 'math', 'rpar', index, tokens, parser);
   },
   pow(index, tokens) {
     return helpers.sequence([
@@ -30,6 +33,14 @@ const matchers = {
       math,
       'operator',
       math,
+    ], index, tokens);
+  },
+  math(index, tokens) {
+    return helpers.oneOf([
+      'pow',
+      'mdequation',
+      'equation',
+      'wrapped_math',
     ], index, tokens);
   },
   assignment(index, tokens) {

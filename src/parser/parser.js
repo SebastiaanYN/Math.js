@@ -15,10 +15,20 @@ function parser(tokens) {
 
       // Loop through all tokens and see if a token matches
       for (let index = 0; index < tokens.length; index += 1) {
-        const matchTokens = parsing[matcher](index, tokens);
+        const match = parsing[matcher](index, tokens, parser);
 
-        // If a group of tokens has matched replace the places were it was with the new token
-        if (matchTokens.length !== 0) {
+        if (typeof match === 'object') {
+          const matchTokens = tokens.slice(index, index + match.amount);
+          const { token } = match;
+
+          // eslint-disable-next-line no-param-reassign
+          tokens = [...tokens.slice(0, index), token, ...tokens.slice(index + matchTokens.length)];
+
+          change = true;
+          break;
+        } else if (match !== 0) {
+          // If a group of tokens has matched replace the places were it was with the new token
+          const matchTokens = tokens.slice(index, index + match);
           const token = { name: matcher, index, tokens: matchTokens };
 
           // eslint-disable-next-line no-param-reassign
