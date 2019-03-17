@@ -15,6 +15,14 @@ const matchers = {
   wrapped_math(index, tokens, parser) {
     return helpers.wrapped('lpar', 'math', 'rpar', index, tokens, parser);
   },
+  math(index, tokens) {
+    return helpers.oneOf([
+      'pow_equation',
+      'md_equation',
+      'equation',
+      'wrapped_math',
+    ], index, tokens);
+  },
   pow_equation(index, tokens) {
     return helpers.sequence([
       mathable,
@@ -34,14 +42,6 @@ const matchers = {
       mathable,
       'operator',
       mathable,
-    ], index, tokens);
-  },
-  math(index, tokens) {
-    return helpers.oneOf([
-      'pow_equation',
-      'md_equation',
-      'equation',
-      'wrapped_math',
     ], index, tokens);
   },
   assignment(index, tokens) {

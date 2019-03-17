@@ -39,6 +39,12 @@ function parser(tokens) {
           break;
         }
       }
+
+      // If there was a change we need to break out and start over to make sure
+      // the order of operations stays correct
+      if (change) {
+        break;
+      }
     }
 
     // If there are no more changes everything should be parsed correctly

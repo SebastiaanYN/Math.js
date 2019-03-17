@@ -10,7 +10,7 @@ function load(name) {
   return fs.readFileSync(path.join(__dirname, '../examples', name)).toString();
 }
 
-const input = load('assign');
+const input = load('complex');
 
 console.log('\nLexing');
 const tokens = lexer(input);
