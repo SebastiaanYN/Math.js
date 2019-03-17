@@ -1,43 +1,44 @@
 const helpers = require('../parser/helpers.js');
 
-const math = ['number', 'symbol', 'fn', 'math'];
+// A set of tokens that can be used for math
+const mathable = ['number', 'symbol', 'fn', 'math'];
 
 const matchers = {
   fn(index, tokens) {
     return helpers.sequence([
       'symbol',
       'lpar',
-      math,
+      mathable,
       'rpar',
     ], index, tokens);
   },
   wrapped_math(index, tokens, parser) {
     return helpers.wrapped('lpar', 'math', 'rpar', index, tokens, parser);
   },
-  pow(index, tokens) {
+  pow_equation(index, tokens) {
     return helpers.sequence([
-      math,
+      mathable,
       'pow_operator',
-      math,
+      mathable,
     ], index, tokens);
   },
   md_equation(index, tokens) {
     return helpers.sequence([
-      math,
+      mathable,
       'md_operator',
-      math,
+      mathable,
     ], index, tokens);
   },
   equation(index, tokens) {
     return helpers.sequence([
-      math,
+      mathable,
       'operator',
-      math,
+      mathable,
     ], index, tokens);
   },
   math(index, tokens) {
     return helpers.oneOf([
-      'pow',
+      'pow_equation',
       'md_equation',
       'equation',
       'wrapped_math',
@@ -47,7 +48,7 @@ const matchers = {
     return helpers.sequence([
       'symbol',
       'assign',
-      math,
+      mathable,
     ], index, tokens);
   },
 };
