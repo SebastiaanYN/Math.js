@@ -17,14 +17,14 @@ const matchers = {
   pow(index, tokens) {
     return helpers.sequence([
       math,
-      'powoperator',
+      'pow_operator',
       math,
     ], index, tokens);
   },
-  mdequation(index, tokens) {
+  md_equation(index, tokens) {
     return helpers.sequence([
       math,
-      'mdoperator',
+      'md_operator',
       math,
     ], index, tokens);
   },
@@ -38,7 +38,7 @@ const matchers = {
   math(index, tokens) {
     return helpers.oneOf([
       'pow',
-      'mdequation',
+      'md_equation',
       'equation',
       'wrapped_math',
     ], index, tokens);

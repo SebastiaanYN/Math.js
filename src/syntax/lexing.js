@@ -6,8 +6,8 @@ const patterns = {
   lpar: /^[\(]/,
   rpar: /^[\)]/,
 
-  powoperator: /^\^/,
-  mdoperator: /^[*\/%]/,
+  pow_operator: /^\^/,
+  md_operator: /^[*\/%]/,
   operator: /^[+-]/,
 
   comment: /^ *#[^\r\n]+/,
