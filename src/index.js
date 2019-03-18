@@ -10,7 +10,7 @@ function load(name) {
   return fs.readFileSync(path.join(__dirname, '../examples', name)).toString();
 }
 
-const input = load('complex');
+const input = load('fn_math');
 
 console.log(input.slice(0, 19).split('\n').length);
 

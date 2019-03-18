@@ -9,7 +9,6 @@ function lexer(string) {
   while (index < string.length) {
     let matched = false;
 
-    // eslint-disable-next-line no-loop-func
     for (const [name, pattern] of Object.entries(patterns)) {
       // Match the string with the pattern
       const match = string.slice(index).match(pattern);

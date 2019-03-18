@@ -9,6 +9,8 @@
     "require-await": "error",
     "no-useless-escape": "off",
     "no-restricted-syntax": "off",
+    "no-constant-condition": "off",
+    "no-param-reassign": "off",
 
     "jsdoc/check-param-names": "error",
     "jsdoc/check-tag-names": "error",

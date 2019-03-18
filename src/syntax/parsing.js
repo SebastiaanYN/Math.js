@@ -4,16 +4,20 @@ const helpers = require('../parser/helpers.js');
 const mathable = ['number', 'symbol', 'fn', 'math'];
 
 const matchers = {
-  fn(index, tokens) {
-    return helpers.sequence([
-      'symbol',
-      'lpar',
-      mathable,
-      'rpar',
-    ], index, tokens);
+  fn(index, tokens, parser) {
+    return helpers.wrappedKeep({
+      pre: 'symbol',
+      start: 'lpar',
+      expected: mathable,
+      end: 'rpar',
+    }, index, tokens, parser);
   },
   wrapped_math(index, tokens, parser) {
-    return helpers.wrapped('lpar', 'math', 'rpar', index, tokens, parser);
+    return helpers.wrapped({
+      start: 'lpar',
+      expected: mathable,
+      end: 'rpar',
+    }, index, tokens, parser);
   },
   math(index, tokens) {
     return helpers.oneOf([

@@ -1,5 +1,64 @@
+function arrayify(input) {
+  return Array.isArray(input) ? input : [input];
+}
+
+function startsWithArray(tokens, array) {
+  for (let i = 0; i < array.length; i += 1) {
+    if (!tokens[i] || tokens[i].name !== array[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 const helpers = {
-  wrapped(start, expected, end, index, tokens, parser) {
+  wrappedKeep(sequence, index, tokens, parser) {
+    const { pre, start, end } = sequence;
+    const expected = arrayify(sequence.expected);
+
+    if (tokens[index].name !== pre || tokens[index + 1].name !== start) {
+      return 0;
+    }
+
+    let startCount = 1;
+    let endCount = 0;
+
+    let i = index + 2;
+    while (true) {
+      if (start.includes(tokens[i].name)) {
+        startCount += 1;
+      } else if (end.includes(tokens[i].name)) {
+        endCount += 1;
+      }
+
+      if (startCount === endCount) {
+        break;
+      }
+
+      i += 1;
+      if (i >= tokens.length) {
+        return 0;
+      }
+    }
+
+    // Parse the matched tokens again
+    const matchedTokens = tokens.slice(index + 2, i);
+    const match = parser(matchedTokens);
+
+    // If the result of the parsing matches with what we want return the result
+    if (match.success && expected.includes(match.tokens[0].name)) {
+      const token = [tokens[index], tokens[index + 1], match.tokens[0], tokens[i]];
+
+      return { amount: matchedTokens.length + 3, token };
+    }
+
+    return 0;
+  },
+  wrapped(sequence, index, tokens, parser) {
+    const { start, end } = sequence;
+    const expected = arrayify(sequence.expected);
+
     const startIndex = index;
 
     // Return if the first token is not the start token
@@ -28,8 +87,8 @@ const helpers = {
     const match = parser(matchedTokens);
 
     // If the result of the parsing matches with what we want return the result
-    if (match[0].name === expected) {
-      return { amount: matchedTokens.length + 2, token: match[0] };
+    if (match.success && expected.includes(match.tokens[0].name)) {
+      return { amount: matchedTokens.length + 2, token: match.tokens[0] };
     }
 
     return 0;

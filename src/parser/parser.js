@@ -4,7 +4,7 @@ const matcherNames = Object.keys(matchers);
 
 function parser(tokens) {
   // Loop until nothing has changed for an entire iteration
-  while (true) { // eslint-disable-line no-constant-condition
+  while (true) {
     let change = false;
 
     // Loop through all matcher names, runs from top to bottom to retain priority
@@ -19,9 +19,8 @@ function parser(tokens) {
 
         if (typeof match === 'object') {
           const matchTokens = tokens.slice(index, index + match.amount);
-          const { token } = match;
+          const token = { name: matcher, index, tokens: match.token };
 
-          // eslint-disable-next-line no-param-reassign
           tokens = [...tokens.slice(0, index), token, ...tokens.slice(index + matchTokens.length)];
 
           change = true;
@@ -31,7 +30,6 @@ function parser(tokens) {
           const matchTokens = tokens.slice(index, index + match);
           const token = { name: matcher, index, tokens: matchTokens };
 
-          // eslint-disable-next-line no-param-reassign
           tokens = [...tokens.slice(0, index), token, ...tokens.slice(index + matchTokens.length)];
 
           // Set changes to true so we know atleast 1 thing has changed in this iteration
