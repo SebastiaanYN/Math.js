@@ -2,16 +2,6 @@ function arrayify(input) {
   return Array.isArray(input) ? input : [input];
 }
 
-function startsWithArray(tokens, array) {
-  for (let i = 0; i < array.length; i += 1) {
-    if (!tokens[i] || tokens[i].name !== array[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
 const helpers = {
   wrappedKeep(sequence, index, tokens, parser) {
     const { pre, start, end } = sequence;
