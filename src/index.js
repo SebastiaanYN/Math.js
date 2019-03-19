@@ -11,7 +11,7 @@ function load(name) {
   return fs.readFileSync(path.join(__dirname, '../examples', name)).toString();
 }
 
-const input = load('assign');
+const input = load('complex');
 
 console.log(input.slice(0, 19).split('\n').length);
 
@@ -25,4 +25,8 @@ const parsed = parser(lexed.tokens);
 console.log(`\n${input.trim()}`);
 console.log(treeify.asTree(parsed.tokens, true));
 
-console.log(analyze(parsed.tokens));
+const code = analyze(parsed.tokens);
+console.log(code);
+
+console.log('\nOutput:');
+new Function(code)(); // eslint-disable-line no-new-func
