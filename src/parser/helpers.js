@@ -2,10 +2,14 @@ function arrayify(input) {
   return Array.isArray(input) ? input : [input];
 }
 
-const helpers = {
-  wrappedKeep(sequence, index, tokens, parser) {
+class Helpers {
+  static wrappedKeep(sequence, index, tokens, parser) {
     const { pre, start, end } = sequence;
     const expected = arrayify(sequence.expected);
+
+    if (!tokens[index] || !tokens[index + 1]) {
+      return 0;
+    }
 
     if (tokens[index].name !== pre || tokens[index + 1].name !== start) {
       return 0;
@@ -44,8 +48,9 @@ const helpers = {
     }
 
     return 0;
-  },
-  wrapped(sequence, index, tokens, parser) {
+  }
+
+  static wrapped(sequence, index, tokens, parser) {
     const { start, end } = sequence;
     const expected = arrayify(sequence.expected);
 
@@ -82,8 +87,9 @@ const helpers = {
     }
 
     return 0;
-  },
-  sequence(sequence, index, tokens) {
+  }
+
+  static sequence(sequence, index, tokens) {
     // Check if sequence of token names matches
     for (let i = 0; i < sequence.length; i += 1) {
       let check = sequence[i];
@@ -112,15 +118,16 @@ const helpers = {
 
     // Return the amount of matched tokens
     return sequence.length;
-  },
-  oneOf(sequence, index, tokens) {
+  }
+
+  static oneOf(sequence, index, tokens) {
     // Check if one of the tokens matches the current token
     if (sequence.includes(tokens[index].name)) {
       return 1;
     }
 
     return 0;
-  },
-};
+  }
+}
 
-module.exports = helpers;
+module.exports = Helpers;
