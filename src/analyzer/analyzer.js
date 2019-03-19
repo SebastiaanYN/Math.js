@@ -7,6 +7,9 @@ const finals = {
   math(code) {
     return `console.log(${code});`;
   },
+  fn(code) {
+    return `console.log(${code});`;
+  },
 };
 
 function analyze(tree) {

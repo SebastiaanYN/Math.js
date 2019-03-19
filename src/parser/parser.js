@@ -9,8 +9,6 @@ function parser(tokens) {
 
     // Loop through all matcher names, runs from top to bottom to retain priority
     for (let i = 0; i < matcherNames.length; i += 1) {
-      console.log(tokens); // debug
-
       const matcher = matcherNames[i];
 
       // Loop through all tokens and see if a token matches

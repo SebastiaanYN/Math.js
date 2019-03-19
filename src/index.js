@@ -13,8 +13,6 @@ function load(name) {
 
 const input = load('complex');
 
-console.log(input.slice(0, 19).split('\n').length);
-
 console.log('\nLexing');
 const lexed = lexer(input);
 console.log(lexed.tokens);
