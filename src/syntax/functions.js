@@ -1,5 +1,11 @@
 const functions = {
   log: {
+    regex: /log/,
+    parser(content) {
+      return `Math.log(${content})`;
+    },
+  },
+  logBase: {
     regex: /^log(0|-?[1-9][0-9]*)([.,][0-9]+)?$/,
     parser(content, match) {
       return `(Math.log(${content})/Math.log(${match[1]}))`;
