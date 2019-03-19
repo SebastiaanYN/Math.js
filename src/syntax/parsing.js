@@ -59,7 +59,7 @@ const matchers = {
 
 // Tokens that can not exist after parsing
 const illegals = [
-  'number',
+  // 'number',
   'symbol',
   'assign',
   'lpar',

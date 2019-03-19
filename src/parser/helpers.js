@@ -83,7 +83,7 @@ class Helpers {
 
     // If the result of the parsing matches with what we want return the result
     if (match.success && expected.includes(match.tokens[0].name)) {
-      return { amount: matchedTokens.length + 2, token: match.tokens[0] };
+      return { amount: matchedTokens.length + 2, token: [match.tokens[0]] };
     }
 
     return 0;
