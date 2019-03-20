@@ -25,6 +25,12 @@ const analyzers = {
 
     return `var ${name}=${value}`;
   },
+  wrapped_math_multiply(node, analyze) {
+    const left = analyze(node.tokens[0]);
+    const right = analyze(node.tokens[1]);
+
+    return `${left}*${right}`;
+  },
   wrapped_math(node, analyze) {
     return analyze(node.tokens[0]);
   },

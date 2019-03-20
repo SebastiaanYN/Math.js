@@ -12,6 +12,12 @@ const matchers = {
       end: 'rpar',
     }, index, tokens, parser);
   },
+  wrapped_math_multiply(index, tokens) {
+    return helpers.sequence([
+      'wrapped_math',
+      'wrapped_math',
+    ], index, tokens);
+  },
   wrapped_math(index, tokens, parser) {
     return helpers.wrapped({
       start: 'lpar',
@@ -25,6 +31,7 @@ const matchers = {
       'md_equation',
       'equation',
       'wrapped_math',
+      'wrapped_math_multiply',
     ], index, tokens);
   },
   pow_equation(index, tokens) {
