@@ -16,7 +16,7 @@ function analyze(tree) {
   if (Array.isArray(tree)) {
     const analyzed = tree.map(node => analyzers[node.name](node, analyze));
 
-    for (let i = 0; i < analyzed.length; i += 1) {
+    for (let i = 0; i < analyzed.length; i++) {
       analyzed[i] = finals[tree[i].name](analyzed[i]);
     }
 

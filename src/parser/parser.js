@@ -8,11 +8,11 @@ function parser(tokens) {
     let change = false;
 
     // Loop through all matcher names, runs from top to bottom to retain priority
-    for (let i = 0; i < matcherNames.length; i += 1) {
+    for (let i = 0; i < matcherNames.length; i++) {
       const matcher = matcherNames[i];
 
       // Loop through all tokens and see if a token matches
-      for (let index = 0; index < tokens.length; index += 1) {
+      for (let index = 0; index < tokens.length; index++) {
         const match = matchers[matcher](index, tokens, parser);
 
         if (typeof match === 'object') {
@@ -50,7 +50,7 @@ function parser(tokens) {
   }
 
   // Check if there is an illegal token left
-  for (let i = 0; i < tokens.length; i += 1) {
+  for (let i = 0; i < tokens.length; i++) {
     if (illegals.includes(tokens[i].name)) {
       console.log(`Illegal ${tokens[i].name} ${tokens[i].raw} at index ${tokens[i].index}`);
       return { success: false, tokens };

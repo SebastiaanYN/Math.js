@@ -91,7 +91,7 @@ class Helpers {
 
   static sequence(sequence, index, tokens) {
     // Check if sequence of token names matches
-    for (let i = 0; i < sequence.length; i += 1) {
+    for (let i = 0; i < sequence.length; i++) {
       let check = sequence[i];
 
       if (typeof check === 'string') {
@@ -99,7 +99,7 @@ class Helpers {
       }
 
       let match = false;
-      for (let j = 0; j < check.length; j += 1) {
+      for (let j = 0; j < check.length; j++) {
         const token = tokens[index + i];
         if (!token) {
           return 0;
